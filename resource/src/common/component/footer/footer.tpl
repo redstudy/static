@@ -1,5 +1,5 @@
 <!--
     @require "./footer.js"
-    @require "./footer.css"
+    @require "./footer.scss"
 -->
 <div class="footer">footer</div>

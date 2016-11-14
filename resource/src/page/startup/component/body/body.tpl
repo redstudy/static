@@ -1,5 +1,5 @@
 <!--
     @require "./body.js"
-    @require "./body.css"
+    @require "./body.scss"
 -->
 <div class="body">body</div>
