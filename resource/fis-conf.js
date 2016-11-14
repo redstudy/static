@@ -1,5 +1,12 @@
+/** 
+ *author:wanghongxin
+ *qq:2262118088
+ *description:fast static framework
+ */
 fis
+
 .config.set('project.watch.usePolling', true)
+.set('project.files', ['/src/page/**/*.html','/mock/**/*','/test/**/*'])
 .set('project.ignore', [
   '/output/**',
   '/node_modules/**',
@@ -18,58 +25,43 @@ fis
   '.gitignore',
   '*.xml',
   '*.yml',
-  'README.md',
-  '/test/**',
+  '**/*.md',
+  //'/test/**',
 ])
 
+/**
+ * <前端环境配置>
+ */
 
-
-// 所有的文件产出到 static/ 目录下
-// fis
-// .media('build')
-// .match('*', {
-//     release: '/static/$0'
-// })
-// .match('*.html:css', {
-//   optimizer: fis.plugin('clean-css')
-// })
-// .match('*.html:js', {
-//   optimizer: fis.plugin('uglify-js')
-// })
-// .match('*.html', {// 所有模板放到 tempalte 目录下
-//     release: '/template/$0'
-// })
-// .match('/widget/**/*', {// widget源码目录下的资源被标注为组件
-//     isMod: true
-// })
-// .match('/widget/**/*.js', {// widget下的 js 调用 jswrapper 进行自动化组件化封装
-//     postprocessor: fis.plugin('jswrapper', {
-//         type: 'commonjs'
-//     })
-// })
-// .match('/test/**/*', {// test 目录下的原封不动产出到 test 目录下
-//     release: '$0'
-// })
-// .match('*', {
-//     //fis3-postpackager-loader 插件进行压缩，已内置
-//     deploy: [
-//         fis.plugin('skip-packed', {
-//         // 配置项
-//         }),
-
-//         fis.plugin('local-deliver', {
-//             to: '../dist'
-//         })
-//     ]
-// })
-.media('fedev')//前端环境配置
-// .match('/static/**/*', {
-//     release: '$0'
-// })
+.media('fedev')
 .match('::package', {
   postpackager: fis.plugin('loader', {})
 })
+.set('project.ignore',[
+    '/test/**/*'
+])
 
+//<对异构语言的编译>
+.match('/src/**/*.scss', {
+    rExt: '.css',
+    parser: fis.plugin('node-sass', {})
+})
+.match('/src/**/*.{ts,tsx}', {
+  parser: fis.plugin('typescript'),
+  rExt: '.js'
+})
+.match('/src/common/component/**/*', {
+    isMod: true
+})
+.match('/src/common/component/**/*.js', {
+    postprocessor: fis.plugin('jswrapper', {
+        type: 'commonjs'
+    })
+})
+//</对异购语言的编译>
+
+
+//<预览规范>
 .match('/src/(config/**)', {
     release: '$1',
 })
@@ -79,45 +71,30 @@ fis
 .match('/src/page/(**)',{
     release:'/static/$1',
 })
-.match('/src/page/(**/*.html)', {// 所有页面放到 tempalte 目录下
-    release: '/tempalte/$1',
+.match('/src/page/(**/*.html)', {
+    release: '/view/$1',
 })
-
-.match('/src/common/static/(**)', {// 所有页面放到 tempalte 目录下
+.match('/src/page/*/component/**/*.{html,tpl,tmpl}', {
+    release: false
+})
+.match('/src/common/static/(**)', {
     release: '/static/common/static/$1',
 })
-
-.match('/src/common/component/**/*', {// component目录下的子目录所有资源被标注为组件
-    isMod: true
-})
-.match('/src/common/component/**/*.js', {// component目录下的 子目录下的js 调用 jswrapper 进行自动化组件化封装
-    postprocessor: fis.plugin('jswrapper', {
-        type: 'commonjs'
-    })
-})
 .match('/src/common/component/(**/*.{css,sass,scss,ts,jsx,js})', {
-    release: '/static/common/$0'
+    release: '/static/common/component/$1'
 })
 .match('/src/common/component/**/*.{html,tpl,tmpl}', {
     release: false
 })
-.match('/src/common/component/**/*.{html,css,sass,scss,ts,jsx,tpl,tmpl}', {
-    // release: '/static/$0'
-})
-
-
-.match('/test/**/*', {// test 目录下的原封不动产出到 test 目录下
-    release: '$0'
+.match('/test/**/*',{
+    release:false,
 })
 .match('*', {
-    //fis3-postpackager-loader 插件进行压缩，已内置
     deploy: [
-        fis.plugin('skip-packed', {
-        // 配置项
-        }),
-
+        fis.plugin('skip-packed', {}),
         fis.plugin('local-deliver', {
             to: '/home/vagrant/.fis3-tmp/www'
         })
     ]
 })
+//</预览规范>
