@@ -1,0 +1,24 @@
+$w:960;
+$n:12;
+$g:30;
+.container{
+    width:960px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: auto;
+    margin-right: auto;
+
+    .row{
+        @for $i from 1 through $n {
+            .col-#{$i}{
+                width:(1 / $n * $i - $g / $w * $i) ;
+                padding-left: ceil($g/2)#{px};
+                padding-right: floor($g/2)#{px};
+            }
+        }
+    }
+}
+
+
+
+
