@@ -16,7 +16,7 @@
     }
     if (device.desktop()) {
         flag=false;
-        if(html.getAttribute('data-from')=="mobile"){
+        if(html.getAttribute('data-layout')=="rem"){
             html.setAttribute('class', (html.getAttribute('class') || '' + ' desktop').trim());
             html.style.fontSize = '100px';
         }else{
