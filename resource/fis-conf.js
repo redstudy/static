@@ -6,7 +6,7 @@
 fis
 
 .config.set('project.watch.usePolling', true)
-.set('project.files', ['/src/page/grid/index.html','/mock/**/*','/test/**/*','/src/config/**/*'])
+.set('project.files', ['/src/page/**/*.index.html','/mock/**/*','/test/**/*','/src/config/map.json'])
 .set('project.ignore', [
   '/output/**',
   '/node_modules/**',
