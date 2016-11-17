@@ -1,1 +1,1 @@
-module.exports=require('./xx.js');
+module.exports=require('./dep1.js');
