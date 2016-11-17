@@ -1,1 +1,1 @@
-console.info('page component:body');
+module.exports=require('./dep1.js');
