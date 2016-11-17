@@ -1,158 +1,140 @@
-! function() {
-    var device = function() { //copy others
-        var device,
-            find,
-            userAgent;
-        device = {};
 
-        userAgent = window.navigator.userAgent.toLowerCase();
+var device = function() { //copy others
+    var device,
+        find,
+        userAgent;
+    device = {};
 
-        device.ios = function() {
-            return device.iphone() || device.ipod() || device.ipad();
-        };
+    userAgent = window.navigator.userAgent.toLowerCase();
 
-        device.iphone = function() {
-            return !device.windows() && find('iphone');
-        };
+    device.ios = function() {
+        return device.iphone() || device.ipod() || device.ipad();
+    };
 
-        device.ipod = function() {
-            return find('ipod');
-        };
+    device.iphone = function() {
+        return !device.windows() && find('iphone');
+    };
 
-        device.ipad = function() {
-            return find('ipad');
-        };
+    device.ipod = function() {
+        return find('ipod');
+    };
 
-        device.android = function() {
-            return !device.windows() && find('android');
-        };
+    device.ipad = function() {
+        return find('ipad');
+    };
 
-        device.androidPhone = function() {
-            return device.android() && find('mobile');
-        };
+    device.android = function() {
+        return !device.windows() && find('android');
+    };
 
-        device.androidTablet = function() {
-            return device.android() && !find('mobile');
-        };
+    device.androidPhone = function() {
+        return device.android() && find('mobile');
+    };
 
-        device.blackberry = function() {
-            return find('blackberry') || find('bb10') || find('rim');
-        };
+    device.androidTablet = function() {
+        return device.android() && !find('mobile');
+    };
 
-        device.blackberryPhone = function() {
-            return device.blackberry() && !find('tablet');
-        };
+    device.blackberry = function() {
+        return find('blackberry') || find('bb10') || find('rim');
+    };
 
-        device.blackberryTablet = function() {
-            return device.blackberry() && find('tablet');
-        };
+    device.blackberryPhone = function() {
+        return device.blackberry() && !find('tablet');
+    };
 
-        device.windows = function() {
-            return find('windows');
-        };
+    device.blackberryTablet = function() {
+        return device.blackberry() && find('tablet');
+    };
 
-        device.windowsPhone = function() {
-            return device.windows() && find('phone');
-        };
+    device.windows = function() {
+        return find('windows');
+    };
 
-        device.windowsTablet = function() {
-            return device.windows() && (find('touch') && !device.windowsPhone());
-        };
+    device.windowsPhone = function() {
+        return device.windows() && find('phone');
+    };
 
-        device.fxos = function() {
-            return (find('(mobile;') || find('(tablet;')) && find('; rv:');
-        };
+    device.windowsTablet = function() {
+        return device.windows() && (find('touch') && !device.windowsPhone());
+    };
 
-        device.fxosPhone = function() {
-            return device.fxos() && find('mobile');
-        };
+    device.fxos = function() {
+        return (find('(mobile;') || find('(tablet;')) && find('; rv:');
+    };
 
-        device.fxosTablet = function() {
-            return device.fxos() && find('tablet');
-        };
+    device.fxosPhone = function() {
+        return device.fxos() && find('mobile');
+    };
 
-        device.meego = function() {
-            return find('meego');
-        };
+    device.fxosTablet = function() {
+        return device.fxos() && find('tablet');
+    };
 
-        device.cordova = function() {
-            return window.cordova && location.protocol === 'file:';
-        };
+    device.meego = function() {
+        return find('meego');
+    };
 
-        device.nodeWebkit = function() {
-            return typeof window.process === 'object';
-        };
+    device.cordova = function() {
+        return window.cordova && location.protocol === 'file:';
+    };
 
-        device.mobile = function() {
-            return device.androidPhone() || device.iphone() || device.ipod() || device.windowsPhone() || device.blackberryPhone() || device.fxosPhone() || device.meego();
-        };
+    device.nodeWebkit = function() {
+        return typeof window.process === 'object';
+    };
 
-        device.tablet = function() {
-            return device.ipad() || device.androidTablet() || device.blackberryTablet() || device.windowsTablet() || device.fxosTablet();
-        };
+    device.mobile = function() {
+        return device.androidPhone() || device.iphone() || device.ipod() || device.windowsPhone() || device.blackberryPhone() || device.fxosPhone() || device.meego();
+    };
 
-        device.desktop = function() {
-            return !device.tablet() && !device.mobile();
-        };
+    device.tablet = function() {
+        return device.ipad() || device.androidTablet() || device.blackberryTablet() || device.windowsTablet() || device.fxosTablet();
+    };
 
-        device.television = function() {
-            var i, tvString;
+    device.desktop = function() {
+        return !device.tablet() && !device.mobile();
+    };
 
-            television = [
-                "googletv",
-                "viera",
-                "smarttv",
-                "internet.tv",
-                "netcast",
-                "nettv",
-                "appletv",
-                "boxee",
-                "kylo",
-                "roku",
-                "dlnadoc",
-                "roku",
-                "pov_tv",
-                "hbbtv",
-                "ce-html"
-            ];
+    device.television = function() {
+        var i, tvString;
 
-            i = 0;
-            while (i < television.length) {
-                if (find(television[i])) {
-                    return true;
-                }
-                i++;
+        television = [
+            "googletv",
+            "viera",
+            "smarttv",
+            "internet.tv",
+            "netcast",
+            "nettv",
+            "appletv",
+            "boxee",
+            "kylo",
+            "roku",
+            "dlnadoc",
+            "roku",
+            "pov_tv",
+            "hbbtv",
+            "ce-html"
+        ];
+
+        i = 0;
+        while (i < television.length) {
+            if (find(television[i])) {
+                return true;
             }
-            return false;
-        };
+            i++;
+        }
+        return false;
+    };
 
-        device.portrait = function() {
-            return (window.innerHeight / window.innerWidth) > 1;
-        };
+    device.portrait = function() {
+        return (window.innerHeight / window.innerWidth) > 1;
+    };
 
-        device.landscape = function() {
-            return (window.innerHeight / window.innerWidth) < 1;
-        };
-        find = function(needle) {
-            return userAgent.indexOf(needle) !== -1;
-        };
-        return device;
-    }();
-
-    var html = document.documentElement;
-    EVENTTYPE = {};
-    if (device.mobile()) {
-        html.setAttribute('class', (html.getAttribute('class') || '' + ' mobile').trim());
-        EVENTTYPE.TAP = 'tap';
-    }
-    if (device.desktop()) {
-        html.setAttribute('class', (html.getAttribute('class') || '' + ' desktop').trim());
-        html.style.fontSize = '100px';
-        EVENTTYPE.TAP = 'click';
-    }
-    if (device.tablet()) {
-        html.setAttribute('class', (html.getAttribute('class') || '' + ' tablet').trim());
-        EVENTTYPE.TAP = 'tap';
-    }
-
+    device.landscape = function() {
+        return (window.innerHeight / window.innerWidth) < 1;
+    };
+    find = function(needle) {
+        return userAgent.indexOf(needle) !== -1;
+    };
+    return device;
 }();

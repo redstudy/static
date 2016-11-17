@@ -1,5 +1,5 @@
 <!--
     @require "./header.js"
-    @require "./header.css"
+    @require "./header.scss"
 -->
 <div class="header">header</div>
