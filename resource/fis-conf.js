@@ -43,7 +43,7 @@ fis
       useInlineMap: true
   })
 })
-.hook('amd', {
+.hook('commonjs', {
 //   wrap: '',
 //   mode: 'commonJs',
 //   baseUrl: '/common/static', 
@@ -89,14 +89,14 @@ fis
   parser: fis.plugin('typescript'),
   rExt: '.js'
 })
-.match('/src/common/component/**/*', {
-    // isMod: true
-})
-.match('/src/common/component/**/*.js', {
-    // postprocessor: fis.plugin('jswrapper', {
-    //     type: 'commonjs'
-    // })
-})
+// .match('/src/common/component/**/*', {
+//     // isMod: true
+// })
+// .match('/src/common/component/**/*.js', {
+//     // postprocessor: fis.plugin('jswrapper', {
+//     //     type: 'commonjs'
+//     // })
+// })
 //</对异购语言的编译>
 
 
@@ -111,8 +111,20 @@ fis
 .match('/src/page/(**)',{
     release:'/static/$1',
 })
-.match('/src/page/(**/*.{js,ts,jsx,es6,coffee})',{
-    release:'/static/$1',
+// .match('/src/page/(**/*.{js,ts,jsx,es6,coffee})',{
+//     release:'/static/$1',
+//     isMod:true,
+//     moduleId:'$1',
+//     extList: ['.js', '.coffee', '.jsx','ts','es6'],
+// })
+.match('/src/page/(*/component/**/*.{js,ts,jsx,est,coffee})', {
+    // release:'/static/$1',
+    isMod:true,
+    moduleId:'$1',
+    extList: ['.js', '.coffee', '.jsx','ts','es6'],
+})
+.match('/src/page/(*/static/js/*.{js,ts,jsx,est,coffee})', {
+    // release:'/static/$1',
     isMod:true,
     moduleId:'$1',
     extList: ['.js', '.coffee', '.jsx','ts','es6'],

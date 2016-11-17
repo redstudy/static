@@ -279,8 +279,8 @@ var define;
 
 
     require.alias = function (id) {
-        // return id.replace(/\.js$/i, '');
-        return id;
+        return id.replace(/\.js$/i, '');
+        // return id;
     };
 
     require.timeout = 5000;
