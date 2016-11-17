@@ -1,1 +1,1 @@
-console.info('common component:header');
+console.info('async common component:header');
