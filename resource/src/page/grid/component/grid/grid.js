@@ -1,1 +1,2 @@
-console.info('page component:body');
+
+console.log(3)
